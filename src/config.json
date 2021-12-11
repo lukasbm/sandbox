@@ -1,0 +1,11 @@
+{
+  "python": {
+    "image": "python:3.10-alpine"
+  },
+  "java": {
+    "image": "openjdk:18-jdk-alpine"
+  },
+  "javascript": {
+    "image": "node:17-alpine3.12"
+  }
+}
