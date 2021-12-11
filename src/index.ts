@@ -1,3 +1,3 @@
-import config from "./config.json";
+import { startServer } from "./server";
 
-console.log(config);
+startServer();
