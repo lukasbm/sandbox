@@ -1,21 +1,7 @@
-import Docker from "dockerode";
+import Docker, { Container } from "dockerode";
 
-export class Sandbox {
-  docker: Docker = new Docker({ socketPath: "/run/docker.sock" });
+let docker: Docker = new Docker({ socketPath: "/run/docker.sock" });
 
-  public runCode(language: string, code: string): string {
-    this.docker
-      .createContainer({
-        Image: "hello-world",
-      })
-      .then((c) => {
-        c.start();
-      })
-      .then(() => console.log("done"))
-      .catch((e) => console.error(e));
-
-    return "test"
-  }
-}
-
-console.log(new Sandbox().runCode("python", "print(hello world"));
+docker.run("python:3.10-alpine", ["python3", "-c", "print('hello world')"], process.stdout, { HostConfig: { AutoRemove: true }})
+  .then((c: Container) => {})
+  .catch(err => console.error(err))

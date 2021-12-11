@@ -2,6 +2,7 @@
   "name": "sandbox",
   "version": "1.0.0",
   "description": "Simple code sandbox.",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "main": "npx tsc && node build/index.js"
