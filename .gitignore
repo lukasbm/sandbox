@@ -106,3 +106,6 @@ dist
 # build
 build/
 dist/
+
+# test data
+data/

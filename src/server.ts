@@ -8,8 +8,8 @@ const port = 8080;
 const sandbox = new Sandbox();
 
 // app.use(express.json());
-app.use(express.text());
 // app.use(express.raw());
+app.use(express.text());
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/executeCode", (req: Request, res: Response) => {
@@ -21,8 +21,15 @@ app.get("/executeCode", (req: Request, res: Response) => {
     return res.status(400).send("invalid language provided");
   }
 
-  let code: string = req.body;
-  return res.send(code);
+  let code: string = req.body as string;
+  if (!code || Object.keys(code).length == 0 || code.trim() === "") {
+    return res.status(400).send("no code provided");
+  }
+
+  let exec = sandbox.runCode(language, code);
+  return exec
+    ? res.send(exec.toString())
+    : res.status(500).send("could not execute code");
 });
 
 function startServer(): void {
