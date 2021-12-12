@@ -1,11 +1,8 @@
 import express, { Application, Request, Response } from "express";
 import config from "./config.json";
-import { Sandbox } from "./sandbox";
 
 const app: Application = express();
 const port = 8080;
-
-const sandbox = new Sandbox();
 
 // app.use(express.json());
 // app.use(express.raw());
@@ -26,10 +23,11 @@ app.get("/executeCode", (req: Request, res: Response) => {
     return res.status(400).send("no code provided");
   }
 
-  let exec = sandbox.runCode(language, code);
-  return exec
-    ? res.send(exec.toString())
-    : res.status(500).send("could not execute code");
+  return res.send(code);
+});
+
+app.get("/getLanguages", (req: Request, res: Response) => {
+  res.send(config);
 });
 
 function startServer(): void {
